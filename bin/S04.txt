@@ -1,10 +1,10 @@
-FG
-TE
-PH
-DF
-PC
-JG
-ZB
 DE
+DF
+FG
+JG
 NG
+PC
+PH
 QA
+TE
+ZB

@@ -1,5 +1,7 @@
 package diskMergeJoin;
 
+import diskSortMerge.DiskSortMerge;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,37 @@ public class DiskMergeJoin {
     }
 
     public static void main(String[] args) {
+/*        DiskSortMerge dsm = new DiskSortMerge();
+        dsm.main(null);
+        try {
+            new DiskMergeJoin().doMerge();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        try {
+            new DiskMergeJoin().mergeDumps();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void mergeDumps() throws IOException {
+        String[] rContent = null;
+        String[] sContent = null;
+        try {
+            rContent = diskIO.FileIO.readAllFile("R_ALL");
+            sContent = diskIO.FileIO.readAllFile("S_ALL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String r : rContent) {
+            for (String s : sContent) {
+                if (r.equals(s)) {
+                    updateBuffer(r);
+                }
+            }
+        }
     }
 
     public void doMerge() throws IllegalArgumentException, IOException {
@@ -45,9 +77,9 @@ public class DiskMergeJoin {
         inputBuffer.add(toPut);
         if (inputBuffer.size() == MEMORY_PAGE_SIZE) {
             diskIO.FileIO.writeFile(diskIO.FileIO.getFileNameWithNumber("RS", numberOfRsPages),
-                    inputBuffer.toArray(new String[inputBuffer.size()]), false);
+                    inputBuffer.toArray(new String[inputBuffer.size()]), true);
             diskIO.FileIO.writeFile("RS", new String[]{diskIO.FileIO.getFileNameWithNumber("RS", numberOfRsPages)},
-                    false);
+                    true);
             numberOfRsPages++;
             inputBuffer.clear();
         }

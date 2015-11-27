@@ -1,10 +1,10 @@
-AG
-BG
-EG
 GG
-JC
+BG
 KA
-RD
+AG
 UF
+JC
 WH
 ZD
+EG
+RD

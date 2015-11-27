@@ -1,10 +1,10 @@
-XE
+AB
+BC
+FC
+JE
 KD
-VB
 NC
 RH
-AB
-JE
-FC
-BC
+VB
 VC
+XE
